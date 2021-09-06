@@ -48,8 +48,8 @@ const ReactFirebaseFileUpload = () => {
             .ref("images")
             .child(image.name)
             .getDownloadURL()
-            .then((urls) => {
-             arrayUrls.push(urls);
+            .then(async(urls) => {
+             await arrayUrls.push(urls);
               
             });
         }
