@@ -1,17 +1,14 @@
 import React, { useState } from "react";
 import { storage, db, timestamp } from "../../config/firebase";
+import { Formik, Field, Form } from "formik";
+import CheckBoxes from "./CheckBoxes";
 
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 const ReactFirebaseFileUpload = () => {
-  const INITIAL_STATE = {
-    images: [],
-    title: "",
-    createdAt: ""
-
-  }
   const [images, setImages] = useState([]);
-  const [values, setValues] = useState(INITIAL_STATE);
   const [urls, setUrls] = useState([]);
+  const [title, setTitle] = useState("");
   const [progress, setProgress] = useState(0);
 
   const handleChange = (e) => {
@@ -22,16 +19,17 @@ const ReactFirebaseFileUpload = () => {
     }
   };
 
-  const handleInput = (e) => {
-    const { name, value } = e.target;
-    setValues({ ...values, [name]: value });
+  const handleTitle = (e) => {
+    const titleSplit = e.target.value.replace(/ /g, "-");
+    setTitle(titleSplit);
   };
 
   const handleUpload = () => {
-    const arrayUrls = [];
     const promises = [];
+    const nameAlbum = title;
+    // eslint-disable-next-line
     images.map((image) => {
-      const uploadTask = storage.ref(`images/${image.name}`).put(image);
+      const uploadTask = storage.ref(`images/${nameAlbum}/${image.name}`).put(image);
       promises.push(uploadTask);
       uploadTask.on(
         "state_changed",
@@ -43,14 +41,12 @@ const ReactFirebaseFileUpload = () => {
           console.log(error);
         },
         async () => {
-          
           await storage
-            .ref("images")
+            .ref(`images/${nameAlbum}`)
             .child(image.name)
             .getDownloadURL()
-            .then(async(urls) => {
-             await arrayUrls.push(urls);
-              
+            .then((urlimg) => {
+              setUrls((prevState) => [...prevState, urlimg]);
             });
         }
       );
@@ -59,10 +55,18 @@ const ReactFirebaseFileUpload = () => {
     Promise.all(promises)
       .then(() => alert("All images uploaded"))
       .catch((err) => console.log(err));
+  };
 
-    const dbRef = db.collection("images");
+  console.log(images);
+  console.log(urls);
+
+  const uploadProject = async (values) => {
+    const images = urls;
+    const dbRef = db.collection("projects");
     const createdAt = timestamp();
-    dbRef.add({ title: values.title, images: arrayUrls , createdAt });
+    const thumb = urls[0];
+    await dbRef.add({ ...values, images, thumb, createdAt });
+    alert("Proyecto añadido exitosamente a la base de datos¡¡");
   };
 
   return (
@@ -70,12 +74,60 @@ const ReactFirebaseFileUpload = () => {
       <div className="container-xl">
         <div className="row">
           <div className="col-10 col-md-8 mx-auto d-flex flex-column">
-            <progress className="w-100" value={progress} max="100" />
-            <input type="text" name="title" onChange={handleInput} />
-            <input className="form-control" type="file" multiple onChange={handleChange} />
-            <button className="btn btn-secondary " onClick={handleUpload}>
-              Upload
-            </button>
+              <progress className="w-100 my-3" value={progress} max="100" />
+            <div class="mb-3">
+              <label className="form-label">Imágenes (selecciona min. 4 imágenes):</label>
+              <input className="form-control" type="file" multiple onChange={handleChange} />
+            </div>
+            <div class="mb-3">
+              <label className="form-label">Título album:</label>
+              <input
+                type="text"
+                className="form-control my-2"
+                name="title-album"
+                placeholder="inserta un nombre unico de album.."
+                onChange={handleTitle}
+              />
+            </div>
+            <div class="mb-3">
+              <button className="btn btn-secondary w-100 " onClick={handleUpload}>
+                Subir imágenes
+              </button>
+            </div>
+
+            <div>
+              <Formik
+                initialValues={{
+                }}
+                onSubmit={async (values, onSubmitProps) => {
+                  await sleep(500);
+                  uploadProject(values);
+                  onSubmitProps.setSubmitting(false);
+                  onSubmitProps.resetForm();
+                }}
+              >
+                {({ values }) => (
+                  <Form>
+                    <div class="mb-3">
+                      <label className="form-label">Imagen de perfil:</label>
+                      <Field className="form-control" type="text" name="thumb" value={urls[0]} />
+                    </div>
+                    <div class="mb-3">
+                      <label className="form-label">Título del proyecto:</label>
+                      <Field className="form-control" type="text" name="title" />
+                    </div>
+                    <div class="mb-3">
+                      <label className="form-label">Descripción:</label>
+                      <Field as="textarea" name="description" className="form-control" type="text" />
+                    </div>
+                    <CheckBoxes/>
+                    <button className="btn btn-secondary w-100" type="submit">
+                      Guardar Proyecto
+                    </button>
+                  </Form>
+                )}
+              </Formik>
+            </div>
           </div>
         </div>
       </div>
