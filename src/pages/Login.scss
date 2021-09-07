@@ -1,11 +1,21 @@
 .form-login{
 
     &__btn{
-        background: linear-gradient(to bottom, #56f2e5, #2feda4);
+        background: linear-gradient(to bottom, #50e6ac, #12da8d);
         border: none;
         color: white;
         font-weight: 400;
         letter-spacing:2px;
         font-size: 20px;
+    }
+    
+    &__btn2{
+        background: linear-gradient(to bottom, #2478e7, #0063e6);
+        border: none;
+        color: white;
+        font-weight: 400;
+        letter-spacing:2px;
+        font-size: 20px;
+        margin-top:10px
     }
 }

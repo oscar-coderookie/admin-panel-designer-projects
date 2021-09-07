@@ -4,7 +4,6 @@ import { Formik, Field, Form } from "formik";
 import CheckBoxes from "./CheckBoxes";
 import "./UploadMultipleImages.scss";
 
-const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 const ReactFirebaseFileUpload = () => {
   const [images, setImages] = useState([]);
@@ -160,11 +159,11 @@ const ReactFirebaseFileUpload = () => {
                         )}
                       </div>
                     </div>
-                    <div class="mb-3">
+                    <div className="mb-3">
                       <p>5. Ahora le asignamos un título al proyecto de diseño:</p>
                       <Field className="form-control" type="text" name="title" />
                     </div>
-                    <div class="mb-3">
+                    <div className="mb-3">
                       <p>6. Describe brevemente el proyecto y de qué trata:</p>
                       <Field as="textarea" name="description" className="form-control" type="text" />
                     </div>

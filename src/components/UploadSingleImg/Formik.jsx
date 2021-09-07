@@ -47,15 +47,15 @@ const BasicForm = () => {
       >
         {({ values }) => (
           <Form>
-            <div class="mb-3">
+            <div className="mb-3">
               <label className="form-label">Título del proyecto:</label>
               <Field className="form-control" type="text" name="title" />
             </div>
-            <div class="mb-3">
+            <div className="mb-3">
               <label className="form-label">Descripción:</label>
               <Field as="textarea" name="description" className="form-control" type="text" />
             </div>
-            <div class="mb-3">
+            <div className="mb-3">
               <label className="form-label">Imagen de perfil:</label>
               <input onChange={handleImage} className="form-control" type="file" name="thumb" />
             </div>
