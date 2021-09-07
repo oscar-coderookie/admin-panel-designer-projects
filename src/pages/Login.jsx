@@ -1,5 +1,6 @@
 import { firebase } from "../config/firebase";
 import { useState } from "react";
+import './Login.scss'
 
 const Authenticate = ({ onLogin }) => {
   const [isLogin, setIsLogin] = useState(true);
@@ -48,9 +49,9 @@ const Authenticate = ({ onLogin }) => {
 
   
   return (
-    <div className="container-xl my-4" style={{height: "100vh"}}>
-      <div className="row ">
-        <div className="col-10 col-md-6 mx-auto my-auto">
+    <div className="container-xl mt-5" style={{height: "94vh"}}>
+      <div className="row my-auto">
+        <div className="col-10 col-md-6 mx-auto ">
           <div className="card p-3">
             <form onSubmit={handleSubmit}>
               <fieldset>
@@ -62,11 +63,8 @@ const Authenticate = ({ onLogin }) => {
                 <input className="form-control mb-2" type="password" required={true} name="password" onChange={handleChange}/>
               </fieldset>
               {error ? <p color="red">{error}</p> : null}
-              <button type="submit" className="btn btn-secondary my-1 w-100">
-                {isLogin ? "Iniciar sesión" : "Registrarme"}
-              </button>
-              <button onClick={() => setIsLogin(!isLogin)} className="btn btn-primary my-1 w-100">
-                {isLogin ? "Quiero registrarme" : "Quiero iniciar sesión"}
+              <button type="submit" className="form-login__btn btn my-1 w-100">
+                Login
               </button>
             </form>
           </div>

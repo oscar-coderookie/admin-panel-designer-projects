@@ -1,0 +1,9 @@
+.header-block{
+    background: linear-gradient(to right, #8e2de2, #4a00e0);
+    
+    &__title{
+        color: #ffffff;
+        font-weight: 300;
+        font-size: 24px;
+    }
+}

@@ -3,7 +3,7 @@ import { Field } from "formik";
 const CheckBoxes = () => {
   return (
     <div role="group" aria-labelledby="checkbox-group">
-      <p className="p-0 m-0 mt-2">Selecciona las tecnologías usadas en el proyecto: </p>
+      <p className="p-0 m-0 mt-2">7. Selecciona las tecnologías usadas en el proyecto: </p>
       <div className="form-check">
         <label className="form-check-label py-3">
           <Field className="form-check-input mx-2" type="checkbox" name="stack" value="rhinoceros" />
@@ -13,8 +13,6 @@ const CheckBoxes = () => {
           <Field className="form-check-input mx-2" type="checkbox" name="stack" value="photoshop" />
           Photoshop
         </label>
-      </div>
-      <div className="form-check">
         <label className="form-check-label py-3">
           <Field className="form-check-input mx-2" type="checkbox" name="stack" value="3d-max" />
           3D-Max

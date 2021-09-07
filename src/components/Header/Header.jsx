@@ -1,20 +1,21 @@
 import { NavLink } from "react-router-dom";
-import logo from "../../images/logo.png";
+import './Header.scss'
+import logo from "../../images/dark-logo.png";
 
 const Header = ({ hasUser, onLogout }) => {
   const ubication = window.location.pathname;
 
   return (
-    <div className="w-100 container-fluid bg-light py-3 d-flex align-items-center justify-content-around">
-      <img src={logo} alt="logo" style={{ height: 60 }} />
-      <h1 className="text-center">Panel admin. Diseño</h1>
+    <div className="header-block w-100 container-fluid py-3 d-flex align-items-center justify-content-around">
+      <img src={logo} alt="logo" style={{ height: '4vh' }} />
+      <h1 className="header-block__title text-center">DashBoard upload design projects</h1>
       {ubication === "/" ? null : (
         <NavLink exact to="/">
           <p>Multiple Upload</p>
         </NavLink>
       )}
       {hasUser ? (
-        <button className="btn btn-default" onClick={onLogout}>
+        <button className="header-block__logout btn btn-default" onClick={onLogout}>
           Logout
         </button>
       ) : null}

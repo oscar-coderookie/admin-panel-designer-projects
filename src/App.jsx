@@ -7,7 +7,7 @@ import Authenticate from "./pages/Login";
 
 function App() {
   const [user, setUser] = useState(null);
-
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((currentUser) => {
@@ -16,6 +16,7 @@ function App() {
       } else {
         setUser(null);
       }
+      setLoading(false);
     });
   }, []);
 
@@ -32,11 +33,15 @@ function App() {
     <Router>
       <div className="App">
         <Header hasUser={!!user} onLogout={() => handleLogout()} />
-        <Switch>
-          <Route path="/">
-            {user ? <UploadMultipleImages userId={user.uid} /> : <Authenticate onLogin={setUser} />}
-          </Route>
-        </Switch>
+        {loading ? (
+          <div>Loading...</div>
+        ) : (
+          <Switch>
+            <Route path="/">
+              {user ? <UploadMultipleImages userId={user.uid} /> : <Authenticate onLogin={setUser} />}
+            </Route>
+          </Switch>
+        )}
       </div>
     </Router>
   );
