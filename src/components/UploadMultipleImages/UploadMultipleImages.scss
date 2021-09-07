@@ -2,6 +2,19 @@
     height: auto;
     padding-bottom: 40px;
 
+    &__input{
+        border: none;
+        border-radius:0;
+        border-bottom: solid 1px rgba(146, 146, 146, 0.733);
+    }
+    &__btn, &__btn2{
+        background: linear-gradient(to bottom, #2478e7, #0063e6);
+        border: none;
+    }
+    &__progress{
+        border-radius: 4px;
+        background-color: #0063e6;
+    }
 
     &__profile-img{
         height: 300px;

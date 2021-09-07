@@ -7,8 +7,8 @@ const Header = ({ hasUser, onLogout }) => {
 
   return (
     <div className="header-block w-100 container-fluid py-3 d-flex align-items-center justify-content-between">
-      <img src={logo} alt="logo" style={{ height: '10vh' }} className="mx-3"/>
-      <h1 className="header-block__title text-center">DashBoard upload design projects</h1>
+      <img src={logo} alt="logo" className="header-block__logo mx-3"/>
+      <h1 className="header-block__title text-center m-0">DashBoard upload design projects</h1>
       {ubication === "/" ? null : (
         <NavLink exact to="/">
           <p>Multiple Upload</p>

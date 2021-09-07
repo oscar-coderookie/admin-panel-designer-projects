@@ -5,12 +5,16 @@
         color: #ffffff;
         font-weight: 300;
         font-size: 24px;
+        text-align: center;
+        margin-right: 20px;
+    }
+    &__logo{
+        width: 400px
     }
     &__logout{
         color: white;
         font-weight:300;
         font-size: 20px
-        
         
     }
 }
